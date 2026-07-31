@@ -14,8 +14,7 @@ on:
 
 env:
   # 定义镜像名称，格式：<Docker Hub 用户名>/<仓库名>
-  # 请根据你的 Docker Hub 账号修改
-  IMAGE_NAME: efatemoon/mihomo-sub
+  IMAGE_NAME: 3142514149/mihomo-sub
 
 jobs:
   build:
