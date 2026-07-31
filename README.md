@@ -27,7 +27,7 @@ docker run -d \
   -e cron="0 */1 * * *" \
   -p 7890:7890 \
   -p 9090:9090 \
-  ghcr.io/efatemoon/mihomo-sub:latest
+  efatemoon/mihomo-sub:latest
 ```
 
 ### Docker Compose
@@ -38,7 +38,7 @@ docker run -d \
 version: "3.8"
 services:
   mihomo:
-    image: ghcr.io/efatemoon/mihomo-sub:latest
+    image: efatemoon/mihomo-sub:latest
     container_name: mihomo-sub
     volumes:
       - "config:/root/.config/mihomo"

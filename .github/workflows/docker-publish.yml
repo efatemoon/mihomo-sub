@@ -13,17 +13,16 @@ on:
   workflow_dispatch:
 
 env:
-  # 定义镜像名称，使用 GitHub Container Registry (ghcr.io)
-  # 格式：ghcr.io/<GitHub 用户名>/<仓库名>
-  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/mihomo-sub
+  # 定义镜像名称，格式：<Docker Hub 用户名>/<仓库名>
+  # 请根据你的 Docker Hub 账号修改
+  IMAGE_NAME: efatemoon/mihomo-sub
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    # 设置权限：读取代码 + 写入 GHCR 包
+    # 设置权限，确保可以读取内容
     permissions:
       contents: read
-      packages: write
 
     steps:
       # 1. 检出代码
@@ -57,15 +56,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # 5. 登录 GitHub Container Registry (GHCR)
-      # 使用仓库自动提供的 GITHUB_TOKEN，无需额外配置 Docker Hub 账号
-      - name: Log in to GitHub Container Registry
+      # 5. 登录 Docker Hub (仅在非 PR 情况下执行推送登录)
+      # 需要先在仓库 Settings -> Secrets 中配置 DOCKER_HUB_USERNAME 和 DOCKER_HUB_PASSWORD
+      - name: Log in to Docker Hub
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       # 6. 构建并推送
       # 使用官方插件替代 run 脚本，可以更好地利用 GitHub 的缓存后端
