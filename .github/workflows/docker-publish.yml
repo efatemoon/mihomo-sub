@@ -3,18 +3,18 @@ name: Docker Image CI
 on:
   push:
     # 监听分支推送
-    branches: [ "main", "dev" ]
+    branches: ["main", "dev"]
     # 监听版本标签推送（如 v1.0.0），这是发布正式版本的常用方式
-    tags: [ 'v*.*.*' ]
+    tags: ["v*.*.*"]
   pull_request:
     # PR 到 dev 分支时触发构建测试（但不推送镜像）
-    branches: [ "dev" ]
+    branches: ["dev"]
   # 支持手动点击运行
   workflow_dispatch:
 
 env:
   # 定义镜像名称，方便统一修改
-  IMAGE_NAME: purewhiteicecream/mihomo-sub
+  IMAGE_NAME: 3142514149/mihomo-sub
 
 jobs:
   build:
